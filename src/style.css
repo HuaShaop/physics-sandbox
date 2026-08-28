@@ -1,0 +1,141 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #12141c;
+  font-family:
+    system-ui,
+    'Segoe UI',
+    Roboto,
+    sans-serif;
+}
+
+/* 全屏物理舞台 */
+#stage {
+  display: block;
+  width: 100vw;
+  height: 100vh;
+  cursor: crosshair;
+  touch-action: none;
+}
+
+/* lil-gui 面板：与工具栏统一的深色玻璃风格 */
+.lil-gui {
+  --width: 290px;
+  --background-color: rgba(18, 20, 28, 0.85);
+  --text-color: #aab2c5;
+  --title-background-color: rgba(24, 27, 38, 0.92);
+  --title-text-color: #e2e8f0;
+  --widget-color: rgba(255, 255, 255, 0.06);
+  --hover-color: rgba(255, 255, 255, 0.12);
+  --focus-color: rgba(126, 200, 227, 0.3);
+  --number-color: #7ec8e3;
+  --string-color: #7ec8e3;
+  --font-size: 12px;
+  --input-font-size: 12px;
+  backdrop-filter: blur(8px);
+}
+
+/* 左侧定位，紧贴工具栏下方，避免遮挡画布主体 */
+.lil-gui.autoPlace {
+  top: 64px;
+  left: 12px;
+  right: auto;
+  bottom: auto;
+  max-height: calc(100vh - 80px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  overflow: auto;
+}
+
+/* 顶部工具栏（左上角，与右侧面板对称） */
+.toolbar {
+  position: fixed;
+  top: 12px;
+  left: 12px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px;
+  background: rgba(18, 20, 28, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  backdrop-filter: blur(8px);
+  z-index: 100;
+  user-select: none;
+}
+
+.tool-btn {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 12px;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  background: transparent;
+  color: #aab2c5;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.tool-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #e2e8f0;
+}
+
+.tool-btn.active {
+  background: rgba(61, 126, 166, 0.35);
+  border-color: #7ec8e3;
+  color: #7ec8e3;
+}
+
+.tool-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.tool-btn .icon {
+  font-size: 16px;
+  line-height: 1;
+}
+
+.tool-btn .tip {
+  font-size: 12px;
+}
+
+.toolbar-sep {
+  width: 1px;
+  height: 20px;
+  background: rgba(255, 255, 255, 0.12);
+  margin: 0 4px;
+}
+
+/* 罗盘控件行：内容更高，垂直居中并使标签顶部对齐 */
+.lil-gui .lil-controller:has(> .lil-widget > svg.compass) {
+  align-items: center;
+  padding: 6px 4px;
+}
+
+.lil-gui .lil-controller:has(> .lil-widget > svg.compass) .lil-name {
+  align-self: center;
+  font-weight: 500;
+}
+
+.lil-gui .lil-widget svg.compass {
+  flex-shrink: 0;
+  border-radius: 50%;
+  transition: filter 0.15s;
+}
+
+.lil-gui .lil-widget svg.compass:hover {
+  filter: brightness(1.15);
+}
+
